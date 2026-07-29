@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editors / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local Python / build junk (in case any source tooling is added)
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+
+# LaTeX build artifacts, in case the paper source is ever dropped in here
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.synctex.gz

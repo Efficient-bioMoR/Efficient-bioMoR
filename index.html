@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<meta name="description" content="bioMoR: Biology-Guided Mixture-of-Recursions for Effective Genomic Learning. Biological knowledge injected at three sites of a Mixture-of-Recursions backbone: +8.2 macro-F1 points, 75% fewer parameters, up to 58% fewer FLOPs across eight omics benchmarks.">
+<meta property="og:title" content="bioMoR: Biology-Guided Mixture-of-Recursions for Effective Genomic Learning"/>
+<meta property="og:description" content="The first Mixture-of-Recursions framework for gene- and pathway-level omics learning. Biology guides embeddings, attention, and per-token recursion depth."/>
+<meta property="og:url" content="https://github.com/Efficient-bioMoR"/>
+<meta property="og:image" content="static/images/teaser.png" />
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:title" content="bioMoR: Biology-Guided Mixture-of-Recursions for Effective Genomic Learning">
+<meta name="twitter:description" content="The first Mixture-of-Recursions framework for gene- and pathway-level omics learning. Biology guides embeddings, attention, and per-token recursion depth.">
+<meta name="twitter:image" content="static/images/teaser.png">
+<meta name="twitter:card" content="summary_large_image">
+  <title>bioMoR: Biology-Guided Mixture-of-Recursions for Effective Genomic Learning</title>
+  <link rel="icon" type="image/x-icon" href="static/images/teaser.png">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">bioMoR: Biology-Guided Mixture-of-Recursions for Effective Genomic Learning</h1>
+            <div class="is-size-5 publication-authors">
+              <div class="author-list">
+                <span class="author-block">
+                  <b>Anonymous Submission</b>
+                </span>
+              </div>
+
+              <div class="is-size-5 publication-authors">
+                <p><i>Author list and affiliations withheld while the manuscript is under double-blind review.</i></p>
+                <p class="venue-accepted"><span class="tag-accepted">Under Review</span> Manuscript under double-blind review &mdash; not yet accepted or published</p>
+              </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <!-- Paper PDF -->
+ <span class="link-block">
+  <a href="static/paper/paper.pdf"
+     target="_blank"
+     class="external-link button is-normal is-rounded is-dark">
+    <span class="icon">
+      <i class="fas fa-file-pdf"></i>
+    </span>
+    <span>Paper</span>
+  </a>
+</span>
+
+      <!-- arXiv -->
+      <!-- TODO: replace href with the arXiv abs URL once the preprint is posted -->
+      <span class="link-block">
+          <a href="#" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                  <i class="ai ai-arxiv"></i>
+              </span>
+              <span>arXiv (soon)</span>
+          </a>
+      </span>
+
+      <!-- Code -->
+      <span class="link-block">
+          <a href="https://github.com/Efficient-bioMoR" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                  <i class="fab fa-github"></i>
+              </span>
+              <span>Code</span>
+          </a>
+      </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser image -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+       <h2 class="title is-3 has-text-centered">Overview of bioMoR</h2>
+      <img src="static/images/overview.png" alt="bioMoR overview: genomic tokenization and three biology-injection sites in a weight-shared recursive Transformer">
+      <h2 class="subtitle has-text-centered">
+     Single-cell and multi-omics inputs are represented as gene or pathway tokens. Fixed biological knowledge is incorporated at three sites: <b>(1)</b> embedding smoothing refines related tokens, <b>(2)</b> biology-guided routing selects tokens for further computation, and <b>(3)</b> attention bias promotes interactions between biologically related tokens in the weight-shared recursive Transformer block. Because the block <i>f</i><sub>&theta;</sub> is reused, recursion depth adds computation but no parameters.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser image -->
+
+
+<!-- Abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Transformer models for high-dimensional omics analysis process thousands of genes or pathways, although only a subset requires deep computation. Mixture-of-Recursions (MoR) improves efficiency through adaptive token-choice or expert-choice routing. We propose bioMoR, which, to the best of our knowledge, is the first framework to apply MoR to gene- and pathway-level learning. Our contributions include identifying three locations for integrating structured biological knowledge within an MoR backbone: graph-based information sharing refines token embeddings, a structural bias guides self-attention toward biologically related tokens, and a graph-aware router uses neighborhood information to determine each token's recursion depth. These techniques are centered on our insight that additional knowledge of token interaction can effectively help models construct embeddings and select which tokens should be learned more deeply. Across eight benchmarks spanning diverse omics data types and evaluated under a unified five-fold cross-validation protocol, bioMoR improves average macro-F1 by <b>8.2 percentage points</b> and balanced accuracy by <b>7.1 percentage points</b> over the strongest biology-agnostic MoR baseline while using <b>75 percent fewer parameters</b> and up to <b>58 percent fewer FLOPs</b> than a non-recursive Transformer. The selected marker genes or pathways provide biological interpretability, while their token-specific recursion depths reveal how computation is allocated.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Abstract -->
+
+
+<!-- Guiding assumption -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Guiding assumption</h2>
+        <div class="content has-text-justified">
+          <p>
+            We should perform computation and learning in a selective and structured manner, based on the semantics of omics data. The model should retain biologically meaningful marker gene / pathway tokens and spend more recursive computation on the tokens whose biological neighborhoods are most predictive for the task.
+          </p>
+          <p>
+            Genomic signal is sparse: a cell type, tumor state, or metastatic phenotype is usually driven by a small set of marker genes, regulatory programs, or pathways. Efficient-attention and adaptive-computation methods route tokens dynamically, but they are biology-agnostic &mdash; they do not know whether two genes co-express, share a pathway, or contribute to the same biological process. Biology-aware resources and models supply exactly that structure, but use it for feature engineering, architectural constraints, or post-hoc interpretation rather than to decide <i>which tokens deserve deeper computation</i>. bioMoR connects the two: biological structure becomes a control signal for adaptive computation, not only a static prior.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Guiding assumption -->
+
+
+<!-- Contributions -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Contributions</h2>
+        <div class="content has-text-left">
+          <ol>
+            <li><b>First Mixture-of-Recursions framework for omics</b> &mdash; bioMoR applies MoR to gene- and pathway-level learning, compressing high-dimensional inputs into marker-gene or Reactome pathway tokens and routing each token to an adaptive number of recursive steps through one weight-shared Transformer block.</li>
+            <li><b>Three sites for biological knowledge</b> &mdash; gene co-expression and pathway-pathway relations are injected into representation learning (embedding smoothing), attention learning (structural bias), and adaptive routing (a zero-initialized, graph-aware router correction) on top of the MoR backbone.</li>
+            <li><b>Extensive evaluation</b> &mdash; across eight single-cell and multi-omics benchmarks under one unified five-fold protocol, the three sites significantly improve macro-F1 and balanced accuracy while reducing both parameter count and FLOP cost, and the gains hold across routing policies, recursion depths, marker budgets, and model widths.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Contributions -->
+
+
+<!-- Main results table -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Main results: eight benchmarks, one protocol</h2>
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <div class="table-container">
+            <table class="table is-fullwidth is-narrow is-hoverable" style="font-size: 0.78rem;">
+              <thead>
+                <tr>
+                  <th></th><th></th><th></th>
+                  <th colspan="5" class="has-text-centered">Single-cell</th>
+                  <th colspan="3" class="has-text-centered">Pathway-based</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <th>Model</th><th>Routing</th><th>Param</th>
+                  <th>Segerstolpe</th><th>Lung</th><th>T-cell</th><th>Muraro</th><th>Spleen</th>
+                  <th>BLCA</th><th>PAN-2M</th><th>PAN-3M</th><th>Avg.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td colspan="12" class="has-text-weight-bold has-background-white-ter">Macro-F1</td></tr>
+                <tr>
+                  <td>Vanilla</td><td>&mdash;</td><td>300K</td>
+                  <td>62.5 &plusmn; 11.2</td><td>72.5 &plusmn; 2.5</td><td>52.1 &plusmn; 3.5</td><td>80.2 &plusmn; 4.3</td><td>48.3 &plusmn; 3.7</td>
+                  <td>40.6 &plusmn; 5.8</td><td>75.6 &plusmn; 3.5</td><td>95.2 &plusmn; 1.5</td><td>65.9</td>
+                </tr>
+                <tr>
+                  <td>Recursive</td><td>&mdash;</td><td>75K</td>
+                  <td>61.4 &plusmn; 7.3</td><td>72.9 &plusmn; 2.9</td><td>50.5 &plusmn; 3.5</td><td>75.8 &plusmn; 4.1</td><td>49.4 &plusmn; 3.4</td>
+                  <td>40.2 &plusmn; 1.1</td><td>72.3 &plusmn; 1.8</td><td>94.3 &plusmn; 1.1</td><td>64.6</td>
+                </tr>
+                <tr>
+                  <td>MoR</td><td>Expert</td><td>75K</td>
+                  <td>64.3 &plusmn; 11.6</td><td>72.3 &plusmn; 2.7</td><td>50.9 &plusmn; 4.7</td><td>74.8 &plusmn; 4.7</td><td>53.2 &plusmn; 1.3</td>
+                  <td><u>43.7 &plusmn; 2.8</u></td><td>75.5 &plusmn; 3.0</td><td>94.3 &plusmn; 1.3</td><td>66.1</td>
+                </tr>
+                <tr>
+                  <td>MoR</td><td>Token</td><td>75K</td>
+                  <td>60.7 &plusmn; 5.8</td><td>73.3 &plusmn; 2.4</td><td>50.4 &plusmn; 2.2</td><td>81.6 &plusmn; 2.7</td><td>51.1 &plusmn; 3.1</td>
+                  <td>40.6 &plusmn; 6.9</td><td>78.0 &plusmn; 4.6</td><td>95.3 &plusmn; 1.6</td><td>66.4</td>
+                </tr>
+                <tr class="has-background-white-bis">
+                  <td><b>bioMoR (ours)</b></td><td>Expert</td><td>75K</td>
+                  <td><u>72.2 &plusmn; 4.5</u></td><td><u>80.0 &plusmn; 1.2</u></td><td><u>70.0 &plusmn; 1.9</u></td><td><u>83.7 &plusmn; 4.9</u></td><td><u>59.7 &plusmn; 0.8</u></td>
+                  <td><u>47.1 &plusmn; 7.1</u></td><td><u>85.8 &plusmn; 1.5</u></td><td><u>98.0 &plusmn; 0.4</u></td><td><b>74.6</b></td>
+                </tr>
+                <tr class="has-background-white-bis">
+                  <td><b>bioMoR (ours)</b></td><td>Token</td><td>75K</td>
+                  <td><u>75.8 &plusmn; 2.8</u></td><td><u>79.7 &plusmn; 0.9</u></td><td><u>69.8 &plusmn; 1.2</u></td><td><u>81.9 &plusmn; 6.8</u></td><td><u>61.0 &plusmn; 0.6</u></td>
+                  <td>39.5 &plusmn; 5.9</td><td><u>86.0 &plusmn; 1.9</u></td><td><u>96.4 &plusmn; 1.6</u></td><td><b>73.8</b></td>
+                </tr>
+
+                <tr><td colspan="12" class="has-text-weight-bold has-background-white-ter">Balanced accuracy</td></tr>
+                <tr>
+                  <td>Vanilla</td><td>&mdash;</td><td>300K</td>
+                  <td>71.7 &plusmn; 10.3</td><td>75.2 &plusmn; 1.5</td><td>55.2 &plusmn; 5.7</td><td>79.1 &plusmn; 3.3</td><td>55.3 &plusmn; 1.4</td>
+                  <td>48.3 &plusmn; 2.8</td><td>74.1 &plusmn; 4.0</td><td>94.9 &plusmn; 1.9</td><td>69.2</td>
+                </tr>
+                <tr>
+                  <td>Recursive</td><td>&mdash;</td><td>75K</td>
+                  <td>69.6 &plusmn; 9.1</td><td>75.3 &plusmn; 1.9</td><td>56.5 &plusmn; 4.6</td><td>77.8 &plusmn; 2.4</td><td>56.9 &plusmn; 1.5</td>
+                  <td>48.5 &plusmn; 2.8</td><td>74.4 &plusmn; 1.6</td><td>93.6 &plusmn; 1.7</td><td>69.1</td>
+                </tr>
+                <tr>
+                  <td>MoR</td><td>Expert</td><td>75K</td>
+                  <td>69.2 &plusmn; 6.1</td><td>76.5 &plusmn; 1.8</td><td>56.6 &plusmn; 6.1</td><td>75.5 &plusmn; 2.3</td><td>57.8 &plusmn; 2.5</td>
+                  <td><u>49.8 &plusmn; 5.0</u></td><td>74.6 &plusmn; 3.1</td><td>93.7 &plusmn; 3.1</td><td>69.2</td>
+                </tr>
+                <tr>
+                  <td>MoR</td><td>Token</td><td>75K</td>
+                  <td>66.4 &plusmn; 8.0</td><td>76.1 &plusmn; 2.2</td><td>56.6 &plusmn; 4.1</td><td>80.6 &plusmn; 8.5</td><td>56.5 &plusmn; 1.4</td>
+                  <td>46.7 &plusmn; 7.8</td><td>73.5 &plusmn; 2.2</td><td>93.7 &plusmn; 4.6</td><td>68.8</td>
+                </tr>
+                <tr class="has-background-white-bis">
+                  <td><b>bioMoR (ours)</b></td><td>Expert</td><td>75K</td>
+                  <td><u>78.8 &plusmn; 4.9</u></td><td><u>80.4 &plusmn; 0.6</u></td><td><u>70.4 &plusmn; 1.6</u></td><td><u>88.9 &plusmn; 4.0</u></td><td><u>64.7 &plusmn; 1.6</u></td>
+                  <td><u>48.7 &plusmn; 7.5</u></td><td><u>82.9 &plusmn; 3.3</u></td><td><u>95.4 &plusmn; 1.3</u></td><td><b>76.3</b></td>
+                </tr>
+                <tr class="has-background-white-bis">
+                  <td><b>bioMoR (ours)</b></td><td>Token</td><td>75K</td>
+                  <td><u>73.3 &plusmn; 7.0</u></td><td><u>82.0 &plusmn; 1.5</u></td><td><u>71.3 &plusmn; 1.4</u></td><td><u>83.4 &plusmn; 3.7</u></td><td><u>64.1 &plusmn; 1.1</u></td>
+                  <td>48.3 &plusmn; 2.2</td><td><u>83.4 &plusmn; 2.6</u></td><td><u>96.1 &plusmn; 1.9</u></td><td><b>75.2</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="description has-text-centered">
+            Macro-F1 and balanced accuracy (mean &plusmn; SD) from five-fold stratified cross-validation on eight benchmark datasets. All rows use the same folds and operating point; Recursive, MoR, and bioMoR use <i>K</i>&nbsp;=&nbsp;4. Avg. is the arithmetic mean across the eight displayed datasets; <u>underlining</u> marks the top two results per dataset. The best bioMoR configuration improves average macro-F1 by <b>8.2 points</b> and balanced accuracy by <b>7.1 points</b> over the strongest non-bioMoR baseline &mdash; at a quarter of the parameters of the vanilla Transformer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Main results table -->
+
+
+<!-- SOTA comparison -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Comparison with external baselines</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="publication-image">
+            <img src="static/images/sota_compare.png" alt="Mean macro-F1 for bioMoR and external baselines on PANCANCER and Lung" style="width: 70%; height: auto;">
+          </div>
+          <p class="description">
+            Mean macro-F1 &plusmn; SD for bioMoR and dataset-appropriate baselines on <b>(a)</b> pathway-based PANCANCER and <b>(b)</b> single-cell Lung under the matched five-fold evaluation setting. bioMoR obtains the highest mean macro-F1 in both panels: <b>0.86 &plusmn; 0.01</b> on PANCANCER versus 0.84 &plusmn; 0.01 for scBiGNN, and <b>0.80 &plusmn; 0.01</b> on Lung versus 0.78 &plusmn; 0.03 for TabNet. Baselines span Random Forest, Nearest-Centroid, scBiGNN, MOGONET, Pathformer, Geneformer, scGPT, and scTransformer-style models.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End SOTA comparison -->
+
+
+<!-- Survival prediction -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Beyond classification: survival prediction</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="publication-image">
+            <img src="static/images/survival_cindex.png" alt="Fold-level C-index distributions on four TCGA cohorts" style="width: 70%; height: auto;">
+          </div>
+          <p class="description">
+            Fold-level C-index distributions for the HNSC, UCEC, COAD, and KIRP TCGA cohorts; higher values indicate better concordance between predicted risk and observed survival outcomes. bioMoR-Expert and bioMoR-Token stay competitive with the Vanilla, Recursive, MoR-Expert, and MoR-Token baselines across all four cohorts, showing that biology-guided adaptive recursion transfers beyond classification to a time-to-event endpoint.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Survival prediction -->
+
+
+<!-- Injection-site ablation -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Which injection site matters?</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="publication-image">
+            <img src="static/images/ablation_bar.png" alt="Injection-site ablation: macro-F1 with biological knowledge at embedding, attention, router, or all three sites" style="width: 62%; height: auto;">
+          </div>
+          <p class="description">
+            Macro-F1 across Spleen, Segerstolpe, Xin, and Pancancer-3M with biological-knowledge injection at the embedding, attention-bias, router, or all three sites; all runs use expert-choice routing with <i>K</i>&nbsp;=&nbsp;4, and the inset shows average rank across datasets (1 is best). Injecting at <b>all three sites</b> achieves the highest macro-F1. Among single-site variants, embedding injection performs best, followed by router-only and then attention-bias-only &mdash; the three sites carry complementary information rather than duplicating one signal.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Injection-site ablation -->
+
+
+<!-- Efficiency -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Training and computational efficiency</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="publication-image">
+            <img src="static/images/t_cell_efficiency.png" alt="T-cell training curves, checkpoint-selected accuracy, and macro-F1 versus FLOPs" style="width: 72%; height: auto;">
+          </div>
+          <p class="description">
+            T-cell with expert-choice routing at <i>K</i>&nbsp;=&nbsp;4. <b>(a)</b> Training loss and <b>(b)</b> validation macro-F1 over epochs; bioMoR drops the loss fastest and reaches nearly 70% validation macro-F1 while the baselines stall near 40&ndash;50%. <b>(c)</b> Test macro-F1 and training epoch at checkpoints selected by lowest validation loss (&#9675;) or highest validation macro-F1 (&#9733;) &mdash; bioMoR wins under both rules (<b>69.9%</b>). <b>(d)</b> Test macro-F1 versus FLOPs for <i>K</i>&nbsp;=&nbsp;2,&nbsp;3,&nbsp;4 with bubble size proportional to parameter count; bioMoR holds 69&ndash;70% macro-F1 at every depth while using fewer FLOPs than Vanilla &mdash; <b>58% fewer at <i>K</i>&nbsp;=&nbsp;2</b>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Efficiency -->
+
+
+<!-- Configuration robustness -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">The gain does not depend on the configuration</h2>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="table-container">
+            <table class="table is-fullwidth is-narrow is-hoverable" style="font-size: 0.8rem;">
+              <thead>
+                <tr>
+                  <th>Model</th><th>Routing</th>
+                  <th colspan="3" class="has-text-centered">Normalized FLOPs / macro-F1</th>
+                </tr>
+                <tr>
+                  <th></th><th></th>
+                  <th class="has-text-centered"><i>K</i> = 2</th>
+                  <th class="has-text-centered"><i>K</i> = 3</th>
+                  <th class="has-text-centered"><i>K</i> = 4</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Vanilla</td><td>&mdash;</td><td class="has-text-centered">&mdash;</td><td class="has-text-centered">&mdash;</td><td class="has-text-centered">1.00 / 52.1 &plusmn; 3.5</td></tr>
+                <tr><td>Recursive</td><td>&mdash;</td><td class="has-text-centered">0.50 / 53.0 &plusmn; 2.0</td><td class="has-text-centered">0.75 / 49.8 &plusmn; 4.4</td><td class="has-text-centered">1.00 / 50.5 &plusmn; 3.5</td></tr>
+                <tr><td>MoR</td><td>Expert</td><td class="has-text-centered">0.42 / 50.6 &plusmn; 4.9</td><td class="has-text-centered">0.59 / 52.3 &plusmn; 2.4</td><td class="has-text-centered">0.76 / 50.9 &plusmn; 4.7</td></tr>
+                <tr><td>MoR</td><td>Token</td><td class="has-text-centered">0.42 / 50.7 &plusmn; 2.2</td><td class="has-text-centered">0.52 / 55.8 &plusmn; 3.0</td><td class="has-text-centered">0.56 / 50.4 &plusmn; 2.2</td></tr>
+                <tr class="has-background-white-bis"><td><b>bioMoR</b></td><td>Expert</td><td class="has-text-centered"><b>0.42 / 69.2 &plusmn; 0.7</b></td><td class="has-text-centered"><b>0.59 / 69.6 &plusmn; 0.6</b></td><td class="has-text-centered"><b>0.76 / 70.0 &plusmn; 1.9</b></td></tr>
+                <tr class="has-background-white-bis"><td><b>bioMoR</b></td><td>Token</td><td class="has-text-centered"><b>0.42 / 68.6 &plusmn; 1.7</b></td><td class="has-text-centered"><b>0.52 / 68.6 &plusmn; 0.9</b></td><td class="has-text-centered"><b>0.56 / 69.8 &plusmn; 1.2</b></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="description has-text-centered">
+            T-cell macro-F1 across routing policies and recursion depths; each cell reports normalized FLOPs / macro-F1 (mean &plusmn; SD). Vanilla, Recursive, and biology-agnostic MoR stay far lower everywhere, while bioMoR stays high under both routing policies and at every depth. The main effect is the biological knowledge; routing policy and depth tune the accuracy&ndash;efficiency trade-off around it. The same holds as the marker budget grows from <i>M</i>&nbsp;=&nbsp;128 to 2048 (mean macro-F1 71.8&ndash;73.5) and as model width grows from <i>d</i>&nbsp;=&nbsp;96 to 352 (mean macro-F1 70.5&ndash;72.7).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Configuration robustness -->
+
+
+<!-- Representations -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Better representations, not just a better head</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="publication-image">
+            <img src="static/images/umap_viz.png" alt="UMAP of frozen penultimate embeddings on Segerstolpe for Vanilla, Recursive, MoR, and bioMoR" style="width: 72%; height: auto;">
+          </div>
+          <p class="description">
+            UMAP visualization of frozen penultimate per-cell embeddings on Segerstolpe for Vanilla, Recursive, MoR, and bioMoR, colored by cell type. Probe accuracy comes from freezing each trained model and fitting a logistic-regression classifier on the training cells. bioMoR forms cleaner cell-type groups and the linear probe performs best on its embeddings (<b>0.92</b> linear-probe accuracy), indicating that the gains come from the learned representation rather than the final prediction layer alone.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Representations -->
+
+
+<!-- Case study -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Which pathways get the deepest computation?</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="publication-image">
+            <img src="static/images/case_study.png" alt="Biological case study: pathway tokens kept for further recursion versus frozen tokens" style="width: 100%; height: auto;">
+          </div>
+          <p class="description">
+            On PAN-2M &mdash; localized versus metastatic cancer, one token per named Reactome pathway &mdash; the router scores active tokens at each recursion; the top 75% continue (green) and the remaining 25% stop and keep their current representations (yellow). The pathways reaching the greatest depth include <b>Wnt signaling</b>, <b>epithelial-to-mesenchymal transition (EMT)</b>, and <b>PI3K&ndash;Akt signaling</b> &mdash; all independently linked in the literature to colonization of distant organs, invasiveness, and outgrowth of micrometastases. Because tokens carry pathway names, the depth assignment is directly readable. This agreement with published studies is encouraging, but it does not establish a causal relationship.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Case study -->
+
+
+<!-- Supplementary -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Additional analyses (supplementary)</h2>
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <img src="static/images/baron_loss.png" alt="Baron training loss versus measured GPU cost" style="width: 100%; height: auto;">
+        </div>
+        <div class="column has-text-centered">
+          <img src="static/images/baron_val_f1.png" alt="Baron validation macro-F1 versus measured GPU cost" style="width: 100%; height: auto;">
+        </div>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <p class="description">
+            <b>Full training-cost curves on Baron</b> (pancreas; 5-fold CV). Training loss (left) and validation macro-F1 (right) versus measured A100 GPU cost for all four architectures; lines are the mean over the same five folds as the main table, shaded bands &plusmn;1 SD. bioMoR reaches its accuracy plateau at lower cumulative training cost than the vanilla Transformer.
+          </p>
+        </div>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="publication-image">
+            <img src="static/images/depth_routing.png" alt="Per-pathway recursion depth under expert-choice and token-choice routing" style="width: 100%; height: auto;">
+          </div>
+          <p class="description">
+            <b>Two routing modes assign per-pathway depth</b> <i>d<sub>m</sub></i> (real Prostate tokens; &#9679; recurses, &#9675; exited). The block <i>f</i><sub>&theta;</sub> is reused up to <i>K</i>&nbsp;=&nbsp;4, so depth adds no parameters. Expert-choice fixes capacity per step; token-choice lets each pathway self-gate its depth.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Supplementary -->
+
+
+<!--BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <p><i>Status: manuscript under double-blind review &mdash; not yet accepted or published.</i></p>
+      <pre><code>@unpublished{anonymous2026biomor,
+  title  = {bioMoR: Biology-Guided Mixture-of-Recursions for Effective Genomic Learning},
+  author = {Anonymous},
+  note   = {Manuscript under review (double-blind)},
+  year   = {2026}
+}</code></pre>
+  </div>
+</section>
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+  </html>
