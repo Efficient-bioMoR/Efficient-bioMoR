@@ -22,7 +22,7 @@ static/paper/paper.pdf     # the manuscript
 ## Figures
 
 Every figure from the main paper is on the page, rasterized from `figs/*.pdf` with
-`pdftoppm -r <dpi> -png -singlefile`. Supplementary figures are deliberately not shown:
+`pdftoppm -r 600 -png -singlefile` (600 dpi). Supplementary figures are deliberately not shown:
 
 | Page image | Source PDF | Paper location |
 | --- | --- | --- |
@@ -37,7 +37,7 @@ Every figure from the main paper is on the page, rasterized from `figs/*.pdf` wi
 To refresh a figure after the paper changes:
 
 ```bash
-pdftoppm -r 450 -png -singlefile /path/to/figs/<name>.pdf static/images/<name>
+pdftoppm -r 600 -png -singlefile /path/to/figs/<name>.pdf static/images/<name>
 ```
 
 ## Preview locally
