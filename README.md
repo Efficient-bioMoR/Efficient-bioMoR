@@ -2,8 +2,7 @@
 
 Project page for **bioMoR: Biology-Guided Mixture-of-Recursions for Effective Genomic Learning**.
 
-> **Status:** manuscript under double-blind review — not yet accepted or published. The author list
-> and affiliations are withheld on the page until review closes.
+> **Status:** manuscript under review — not yet accepted or published.
 
 Static site built on the [Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template)
 (adopted from [Nerfies](https://nerfies.github.io)), matching the styling of the
@@ -51,5 +50,5 @@ python3 -m http.server 8000   # then open http://localhost:8000
 
 - [ ] Replace the `arXiv (soon)` button's `href="#"` with the arXiv abs URL.
 - [ ] Point the `Code` button at the actual code repository (currently the org page).
-- [ ] Swap the anonymous author block for the real author list once review closes, and update the
-      BibTeX entry from `@unpublished{anonymous2026biomor, ...}` to the published reference.
+- [ ] Update the BibTeX from `@unpublished{howlader2026biomor, ...}` to the published reference once
+      the paper is accepted, and swap the `Under Review` tag for the venue.
