@@ -440,42 +440,6 @@
 <!-- End Case study -->
 
 
-<!-- Supplementary -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3 has-text-centered">Additional analyses (supplementary)</h2>
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <img src="static/images/baron_loss.png" alt="Baron training loss versus measured GPU cost" style="width: 100%; height: auto;">
-        </div>
-        <div class="column has-text-centered">
-          <img src="static/images/baron_val_f1.png" alt="Baron validation macro-F1 versus measured GPU cost" style="width: 100%; height: auto;">
-        </div>
-      </div>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <p class="description">
-            <b>Full training-cost curves on Baron</b> (pancreas; 5-fold CV). Training loss (left) and validation macro-F1 (right) versus measured A100 GPU cost for all four architectures; lines are the mean over the same five folds as the main table, shaded bands &plusmn;1 SD. bioMoR reaches its accuracy plateau at lower cumulative training cost than the vanilla Transformer.
-          </p>
-        </div>
-      </div>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <div class="publication-image">
-            <img src="static/images/depth_routing.png" alt="Per-pathway recursion depth under expert-choice and token-choice routing" style="width: 100%; height: auto;">
-          </div>
-          <p class="description">
-            <b>Two routing modes assign per-pathway depth</b> <i>d<sub>m</sub></i> (real Prostate tokens; &#9679; recurses, &#9675; exited). The block <i>f</i><sub>&theta;</sub> is reused up to <i>K</i>&nbsp;=&nbsp;4, so depth adds no parameters. Expert-choice fixes capacity per step; token-choice lets each pathway self-gate its depth.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End Supplementary -->
-
-
 <!--BibTeX -->
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">

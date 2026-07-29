@@ -22,8 +22,8 @@ static/paper/paper.pdf     # the manuscript
 
 ## Figures
 
-Every figure in the current paper is on the page, rasterized from `figs/*.pdf` with
-`pdftoppm -r <dpi> -png -singlefile`:
+Every figure from the main paper is on the page, rasterized from `figs/*.pdf` with
+`pdftoppm -r <dpi> -png -singlefile`. Supplementary figures are deliberately not shown:
 
 | Page image | Source PDF | Paper location |
 | --- | --- | --- |
@@ -34,8 +34,6 @@ Every figure in the current paper is on the page, rasterized from `figs/*.pdf` w
 | `t_cell_efficiency.png` | `t_cell_efficiency.pdf` | Fig. 6 — training/compute efficiency |
 | `umap_viz.png` | `umap_viz_old.pdf` | Fig. 3 — frozen-embedding linear probe |
 | `case_study.png` | `case_study.pdf` | Fig. 7 — biological case study |
-| `baron_loss.png`, `baron_val_f1.png` | `baron_loss.pdf`, `baron_val_f1.pdf` | Supp. — Baron training-cost curves |
-| `depth_routing.png` | `fig2_depth.pdf` | Supp. — routing-depth visualisation |
 
 To refresh a figure after the paper changes:
 
